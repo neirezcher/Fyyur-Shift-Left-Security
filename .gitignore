@@ -1,0 +1,95 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# Environment variables
+.env
+.env.*
+
+# PyInstaller
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+
+# Flask stuff:
+instance/
+*.db
+*.sqlite
+
+# Alembic migrations (Flask-Migrate)
+migrations/
+!migrations/README
+!migrations/env.py
+!migrations/script.py.mako
+!migrations/versions/
+
+# SQL
+*.sql
+*.dump
+
+# VSCode
+.vscode/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# PyCharm
+.idea/
+
+# Git
+*.orig
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+pnpm-lock.yaml
+
+# Frontend build outputs
+build/
+dist/
+
+# Python egg info
+*.egg-info/
+
+# Logs
+*.log
+logs/
+
+# Misc
+*.bak
+*.tmp
+*.swp

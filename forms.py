@@ -1,7 +1,8 @@
 from datetime import datetime
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField, BooleanField
-from wtforms.validators import DataRequired, AnyOf, URL,Regexp, ValidationError
+from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField, BooleanField,RadioField
+from wtforms.validators import DataRequired, AnyOf, URL,Regexp, ValidationError,Optional,Length
+import re
 
 
 
@@ -127,18 +128,18 @@ class VenueForm(FlaskForm):
         ]
     )
     facebook_link = StringField(
-        'facebook_link', validators=[URL(),optional()]
+        'facebook_link', validators=[URL(),Optional()]
     )
     website_link = StringField(
-        'website_link',validators=[URL(),optional()]
+        'website_link',validators=[URL(),Optional()]
     )
 
     seeking_talent = RadioField(
-        'seeking_talent', choices=[(True,'Yes'),(False,'No')], validators=[optional()]
+        'seeking_talent', choices=[(True,'Yes'),(False,'No')], validators=[Optional()]
     )
 
     seeking_description = StringField(
-        'seeking_description',validators=[optional(), length(max=300)]
+        'seeking_description',validators=[Optional(), Length(max=300)]
     )
 
 
@@ -250,17 +251,17 @@ class ArtistForm(FlaskForm):
      )
     facebook_link = StringField(
         # TODO implement enum restriction
-        'facebook_link', validators=[URL(),optional()]
+        'facebook_link', validators=[URL(),Optional()]
      )
 
     website_link = StringField(
-        'website_link',validators=[URL(),optional()]
+        'website_link',validators=[URL(),Optional()]
      )
 
     seeking_venue = RadioField(
-        'seeking_venue', choices=[(True,'Yes'),(False,'No')], validators=[optional()]
+        'seeking_venue', choices=[(True,'Yes'),(False,'No')], validators=[Optional()]
     )
 
     seeking_description = StringField(
-            'seeking_description',validators=[optional(), length(max=300)]
+            'seeking_description',validators=[Optional(), Length(max=300)]
      )

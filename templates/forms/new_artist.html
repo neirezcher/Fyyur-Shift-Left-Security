@@ -48,13 +48,13 @@
         <div class="form-group">
             <label for="website_link">Website Link</label>
             {{ form.website_link(class_ = 'form-control', placeholder='http://', autofocus = true) }}
-            {% for message in form.website.errors %}
+            {% for message in form.website_link.errors %}
                 <span class="error">{{ message }}</span>
             {% endfor %}
           </div>
 
         <div class="form-check">
-            {{ form.seeking_venue(class_ = 'form-check-input', id=form.state, autofocus = true) }}
+            {{ form.seeking_venue(class_ = 'form-check-input', id='seeking_venue', autofocus = true) }}
             <label for="seeking_venue" class="form-check-label">Looking for Venues</label>
         </div>
 

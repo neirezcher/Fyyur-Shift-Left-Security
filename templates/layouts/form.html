@@ -1,49 +1,44 @@
-<!doctype html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>{% block title %}{% endblock %}</title>
+  <meta charset="utf-8">
+  <title>{% block title %}Fyyur - Form{% endblock %}</title>
 
-<!-- meta -->
-<meta name="description" content="">
-<meta name="author" content="">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<!-- /meta -->
+  <!-- Meta -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- styles -->
-<link type="text/css" rel="stylesheet" href="/static/css/font-awesome-4.1.0.min.css" />
-<link type="text/css" rel="stylesheet" href="/static/css/bootstrap-3.1.1.min.css">
-<link type="text/css" rel="stylesheet" href="/static/css/bootstrap-theme-3.1.1.min.css" />
-<link type="text/css" rel="stylesheet" href="/static/css/layout.main.css" />
-<link type="text/css" rel="stylesheet" href="/static/css/main.css" />
-<link type="text/css" rel="stylesheet" href="/static/css/main.responsive.css" />
-<link type="text/css" rel="stylesheet" href="/static/css/main.quickfix.css" />
-<!-- /styles -->
+  <!-- Styles -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome-4.1.0.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-3.1.1.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-theme-3.1.1.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.responsive.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.quickfix.css') }}">
 
-<!-- favicons -->
-<link rel="shortcut icon" href="/static/ico/favicon.png">
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/ico/apple-touch-icon-144-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/ico/apple-touch-icon-114-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/ico/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed" href="/static/ico/apple-touch-icon-57-precomposed.png">
-<link rel="shortcut icon" href="/static/ico/favicon.png">
-<!-- /favicons -->
+  <!-- Favicons -->
+  <link rel="shortcut icon" href="{{ url_for('static', filename='ico/favicon.png') }}">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url_for('static', filename='ico/apple-touch-icon-144-precomposed.png') }}">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ url_for('static', filename='ico/apple-touch-icon-114-precomposed.png') }}">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ url_for('static', filename='ico/apple-touch-icon-72-precomposed.png') }}">
+  <link rel="apple-touch-icon-precomposed" href="{{ url_for('static', filename='ico/apple-touch-icon-57-precomposed.png') }}">
 
-<!-- scripts -->
-<script src="/static/js/libs/modernizr-2.8.2.min.js"></script>
-<!--[if lt IE 9]><script src="/static/js/libs/respond-1.4.2.min.js"></script><![endif]-->
-<!-- /scripts -->
-
+  <!-- Scripts -->
+  <script src="{{ url_for('static', filename='js/libs/modernizr-2.8.2.min.js') }}" defer></script>
 </head>
+
 <body class="form-only-page">
 
-  <div class="container">
+  <div class="container mt-5 pt-5">
 
     {% with messages = get_flashed_messages() %}
       {% if messages %}
         {% for message in messages %}
-          <div class="alert alert-warning fade in">
-            <a class="close" data-dismiss="alert">&times;</a>
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
             {{ message }}
+            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">&times;</button>
           </div>
         {% endfor %}
       {% endif %}
@@ -53,11 +48,14 @@
 
   </div>
 
-  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script type="text/javascript" src="/static/js/libs/jquery-1.11.1.min.js"><\/script>')</script>
-  <script type="text/javascript" src="/static/js/libs/bootstrap-3.1.1.min.js" defer></script>
-  <script type="text/javascript" src="/static/js/plugins.js" defer></script>
-  <script type="text/javascript" src="/static/js/script.js" defer></script>
+  <!-- Scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="{{ url_for("static", filename="js/libs/jquery-1.11.1.min.js") }}"><\/script>');
+  </script>
+  <script src="{{ url_for('static', filename='js/libs/bootstrap-3.1.1.min.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/plugins.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
 
 </body>
 </html>

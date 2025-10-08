@@ -30,7 +30,7 @@ COPY . /app
 # Install Bootstrap (v3) via npm
 # Install in project root (creates node_modules). If you prefer inside static/ adjust --prefix.
 RUN npm init -y \
- && npm install bootstrap@3 --no-audit --no-fund
+ && npm install bootstrap@4 --no-audit --no-fund
 
 # Make entrypoint executable
 COPY entrypoint.sh /app/entrypoint.sh

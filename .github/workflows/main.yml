@@ -14,31 +14,28 @@ env:
   DOCKER_TAG: latest
   FLASK_APP: app.py
   FLASK_ENV: development
+  SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
 jobs:
   setup:
     name: Setup Python Environment
     runs-on: ubuntu-latest
+    outputs:
+      python-path: ${{ steps.python-path.outputs.python-location }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
 
       - name: Set up Python 3.10
+        id: python-path
         uses: actions/setup-python@v5
         with:
-            python-version: '3.10'
+          python-version: '3.10.18'
 
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
-      - name: Install Snyk CLI
-        run: |
-          npm install -g snyk
-
-      - name: Authenticate Snyk
-        run: snyk auth ${{ secrets.SNYK_TOKEN }}
 
   snyk_scan:
     name: Snyk Dependency Scan
@@ -47,12 +44,15 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+  
+      - name: Install Snyk CLI
+        run: npm install -g snyk
+  
+      - name: Run Snyk Test and Monitor
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: snyk test && snyk monitor
 
-      - name: Run Snyk test
-        run: snyk test
-
-      - name: Monitor project on Snyk
-        run: snyk monitor
 
   sonar_scan:
     name: SonarQube Scan
@@ -62,13 +62,12 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Set up SonarQube scanner
+      - name: Run SonarQube scanner
         uses: sonarsource/sonarcloud-github-action@v2
         with:
           projectKey: fyyur
-          organization: your-sonarqube-org
+          organization: neirezcher
           token: ${{ secrets.SONAR_TOKEN }}
-
 
   docker_build_push:
     name: Build and Push Docker Image
@@ -79,15 +78,13 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Log in to Docker Hub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Docker image
-        run: |
-          docker build -t $DOCKER_IMAGE_NAME:$DOCKER_TAG .
+        run: docker build -t $DOCKER_IMAGE_NAME:$DOCKER_TAG .
 
       - name: Push Docker image
-        run: |
-          docker push $DOCKER_IMAGE_NAME:$DOCKER_TAG
+        run: docker push $DOCKER_IMAGE_NAME:$DOCKER_TAG

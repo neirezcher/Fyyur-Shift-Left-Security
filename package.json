@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/neirezcher/Fyyr#readme",
   "dependencies": {
-    "bootstrap": "^3.4.1"
+    "bootstrap": "^4.0.0"
   }
 }

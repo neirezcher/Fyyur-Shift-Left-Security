@@ -2,7 +2,24 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 #----------------------------------------------------------------------------#
+# Association tables
+venue_genres = db.Table(
+    'venue_genres',
+    db.Column('venue_id', db.Integer, db.ForeignKey('Venue.id'), primary_key=True),
+    db.Column('genre_id', db.Integer, db.ForeignKey('Genre.id'), primary_key=True)
+)
+
+artist_genres = db.Table(
+    'artist_genres',
+    db.Column('artist_id', db.Integer, db.ForeignKey('Artist.id'), primary_key=True),
+    db.Column('genre_id', db.Integer, db.ForeignKey('Genre.id'), primary_key=True)
+)
 # Models.
+class Genre(db.Model):
+    __tablename__ = 'Genre'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), unique=True, nullable=False)
+    
 class Venue(db.Model):
     __tablename__ = 'Venue'
 
@@ -14,7 +31,7 @@ class Venue(db.Model):
     phone = db.Column(db.String(120))
     image_link = db.Column(db.String(500))
     facebook_link = db.Column(db.String(120))
-    genres = db.Column(db.String(120))
+    genres = db.relationship('Genre', secondary=venue_genres, backref=db.backref('venues', lazy=True))
     shows = db.relationship("Show", backref="venue", cascade="all, delete-orphan", lazy=True)
     seeking_talent = db.Column(db.Boolean, default=False)
     seeking_description = db.Column(db.String(500))
@@ -44,7 +61,7 @@ class Artist(db.Model):
     city = db.Column(db.String(120))
     state = db.Column(db.String(120))
     phone = db.Column(db.String(120))
-    genres = db.Column(db.String(120))
+    genres = db.relationship('Genre', secondary=artist_genres, backref=db.backref('artists', lazy=True))
     image_link = db.Column(db.String(500))
     facebook_link = db.Column(db.String(120))
     seeking_venue = db.Column(db.Boolean, default=False)
